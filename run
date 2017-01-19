@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# Runs a single simulator test
+
+members=${1:-1}
+clients=${2:-1}
+duration=${3:-1m}
+testsuite=${4:-test}
+outputDir=${5:-outputDir}
+
+memberHeapSZ=1G
+clientHeapSZ=512M
+
+partitions=271
+monitorSec=30
+
+jfrArgs="-XX:+UnlockCommercialFeatures \
+         -XX:+FlightRecorder \
+         -XX:StartFlightRecording=duration=120m,filename=recording.jfr \
+         -XX:+UnlockDiagnosticVMOptions \
+         -XX:+DebugNonSafepoints"
+
+gcArgs="-verbose:gc -Xloggc:verbosegc.log\
+        -XX:+PrintGCTimeStamps \
+        -XX:+PrintGCDetails \
+        -XX:+PrintTenuringDistribution \
+        -XX:+PrintGCApplicationStoppedTime \
+        -XX:+PrintGCApplicationConcurrentTime \
+        -XX:+HeapDumpOnOutOfMemoryError "
+
+memberJvmArgs="-Dhazelcast.partition.count=${partitions} \
+               -Dhazelcast.health.monitoring.level=NOISY -Dhazelcast.health.monitoring.delay.seconds=${monitorSec} \
+               -Xmx${memberHeapSZ} -Xms${memberHeapSZ}  \
+               ${gcArgs} \
+               ${jfrArgs} "
+
+clientJvmArgs="-Xmx${clientHeapSZ} -Xms${clientHeapSZ} \
+               ${gcArgs}
+               ${jfrArgs} "
+
+coordinator --members ${members} \
+            --clients ${clients} \
+            --duration ${duration} \
+            --workerVmOptions "${memberJvmArgs}" \
+            --clientWorkerVmOptions "${clientJvmArgs}" \
+            --sessionId ${outputDir} \
+             ${testsuite}.properties
