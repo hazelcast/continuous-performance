@@ -13,7 +13,7 @@ REPORT_HTML=${7:-perf-regression-report.html}
 THRESHOLD=${8:-2}
 MEMBERS=2
 CLIENTS=1
-TEST_DURATION=30s
+TEST_DURATION=60s
 DATE=$(date '+%Y_%m_%d-%H_%M_%S')
 REPORT_HTML_LOC=${TEST_RESULT_DIR}/${DATE}/${REPORT_HTML}
 
@@ -109,7 +109,7 @@ add_report(){
     html "<tr bgcolor=/"#0B97F3/"><td>Benchmark Name</td>"
     html "<td>Throughput - "${BASELINE_VERSION}" (op/s)</td>"
     html "<td>Throughput - "${MASTER_VERSION}" (op/s)</td>"
-    html "<td>Throughput Improvement</td>"
+    html "<td>Throughput Improvement %</td>"
     html "<td>Result</td>"
     html "</tr>"
 
@@ -138,7 +138,7 @@ add_report(){
     html "</table>"
 }
 
-run_benchmarks 1 1
+run_benchmarks 1 2
 
 html "<html><body>"
 add_report "Clients"  1 2

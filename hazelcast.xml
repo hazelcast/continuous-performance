@@ -39,4 +39,7 @@
         <async-backup-count>1</async-backup-count>
     </map>
 
+    <cache name="cache*">
+    </cache>
+
 </hazelcast>
