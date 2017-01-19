@@ -11,7 +11,7 @@ COMPARISON_REPORT_DIR=${5:-comparison-report}
 REPORT_CSV=${6:-report.csv}
 REPORT_HTML=${7:-perf-regression-report.html}
 THRESHOLD=${8:-2}
-MEMBERS=1
+MEMBERS=2
 CLIENTS=1
 TEST_DURATION=30s
 DATE=$(date '+%Y_%m_%d-%H_%M_%S')
@@ -37,12 +37,6 @@ echo "Copying all content from PERF_REGRESSION_HOME to Jenkins Workspace"
 #cp -r ${PERF_REGRESSION_HOME}/* .
 #cp ${PERF_REGRESSION_HOME}/*.* .
 echo "Copying completed."
-
-#Creating machines on AWS
-echo "Creating 2 machines on AWS using command : provisioner --scale 2 "
-cp template_simulator.properties simulator.properties
-#${SIMULATOR_ROOT}/bin/provisioner --scale 2
-echo "Machine creation completed."
 
 html()
 {
@@ -99,6 +93,7 @@ add_report(){
     MEMBERS=$3
     html "<h2>$TITLE</h2>"
     html "<h3>TESTS CONFIGURATION </h3>"
+
     html "<table border=\"1\">"
     html "<tr bgcolor=/"#0B97F3/"><td>NAME</td><td>VALUE</td></tr>"
     html "<tr><td>Baseline Hazelcast Version</td><td>"${BASELINE_VERSION}"</td></tr>"
@@ -146,9 +141,12 @@ add_report(){
 run_benchmarks 1 1
 
 html "<html><body>"
-add_report "Clients"  1 1
+add_report "Clients"  1 2
+
+run_benchmarks 0 2
+add_report "Members only" 0 2
 
 run_benchmarks 0 1
-add_report "Members only" 0 1
+add_report "Single node" 0 1
 
 html "</body></html>"

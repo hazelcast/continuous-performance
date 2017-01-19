@@ -21,10 +21,10 @@ perf_change=$(echo $perf_change*100 | bc -l)
 grace_perf_change=$(echo $perf_change + ${THRESHOLD} | bc -l)
 
 if [ 1 -eq "$(echo "${grace_perf_change} < 0" | bc)" ]
-  then
+then
     RESULT[${INDEX}]="FAILED"
-  else
+else
     RESULT[${INDEX}]="PASSED"
-  fi
+fi
 
 echo $benchmark_name,$TPS_LHS,$TPS_RHS,$perf_change,${RESULT[${INDEX}]}

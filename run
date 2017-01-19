@@ -8,8 +8,8 @@ duration=${3:-1m}
 testsuite=${4:-test}
 outputDir=${5:-outputDir}
 
-memberHeapSZ=1G
-clientHeapSZ=512M
+memberHeapSZ=2G
+clientHeapSZ=1G
 
 partitions=271
 monitorSec=30
@@ -28,8 +28,10 @@ gcArgs="-verbose:gc -Xloggc:verbosegc.log\
         -XX:+PrintGCApplicationConcurrentTime \
         -XX:+HeapDumpOnOutOfMemoryError "
 
+# both client and member get a fixated initial/max-heap size. This makes performance more stable
+
 memberJvmArgs="-Dhazelcast.partition.count=${partitions} \
-               -Dhazelcast.health.monitoring.level=NOISY -Dhazelcast.health.monitoring.delay.seconds=${monitorSec} \
+               -Dhazelcast.diagnostics.enabled=true -Dhazelcast.diagnostics.metric.level=info \
                -Xmx${memberHeapSZ} -Xms${memberHeapSZ}  \
                ${gcArgs} \
                ${jfrArgs} "
@@ -38,10 +40,10 @@ clientJvmArgs="-Xmx${clientHeapSZ} -Xms${clientHeapSZ} \
                ${gcArgs}
                ${jfrArgs} "
 
-coordinator --members ${members} \
-            --clients ${clients} \
-            --duration ${duration} \
+coordinator --duration ${duration} \
+            --members ${members} \
             --workerVmOptions "${memberJvmArgs}" \
+            --clients ${clients} \
             --clientWorkerVmOptions "${clientJvmArgs}" \
             --sessionId ${outputDir} \
-             ${testsuite}.properties
+            ${testsuite}.properties
