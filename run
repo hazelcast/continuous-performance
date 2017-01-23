@@ -8,8 +8,8 @@ duration=${3:-1m}
 testsuite=${4:-test}
 outputDir=${5:-outputDir}
 
-memberHeapSZ=2G
-clientHeapSZ=1G
+memberHeapSZ=4G
+clientHeapSZ=2G
 
 partitions=271
 monitorSec=30
