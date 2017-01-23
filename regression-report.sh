@@ -11,8 +11,6 @@ COMPARISON_REPORT_DIR=${5:-comparison-report}
 REPORT_CSV=${6:-report.csv}
 REPORT_HTML=${7:-perf-regression-report.html}
 THRESHOLD=${8:-2}
-MEMBERS=2
-CLIENTS=1
 TEST_DURATION=60s
 DATE=$(date '+%Y_%m_%d-%H_%M_%S')
 REPORT_HTML_LOC=${TEST_RESULT_DIR}/${DATE}/${REPORT_HTML}
@@ -138,13 +136,12 @@ add_report(){
     html "</table>"
 }
 
-run_benchmarks 1 2
-
+run_benchmarks 3 3
 html "<html><body>"
-add_report "Clients"  1 2
+add_report "Clients"  3 3
 
-run_benchmarks 0 2
-add_report "Members only" 0 2
+run_benchmarks 0 3
+add_report "Members only" 0 3
 
 run_benchmarks 0 1
 add_report "Single node" 0 1
