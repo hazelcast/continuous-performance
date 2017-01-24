@@ -28,7 +28,7 @@ echo "Setting Simulator home..."
 #PATH="${SIMULATOR_HOME}/bin:${PATH}"
 
 # make sure that simulator is installed on the machines.
-privisioner --install
+provisioner --install
 
 echo "New Simulator home : " $SIMULATOR_HOME
 echo "Perf Regression Home : " $PERF_REGRESSION_HOME
