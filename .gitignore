@@ -16,3 +16,4 @@ agent.pid
 doit.save
 template_simulator.properties
 .doit.swp
+*.agents

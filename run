@@ -40,6 +40,8 @@ clientJvmArgs="-Xmx${clientHeapSZ} -Xms${clientHeapSZ} \
                ${gcArgs}
                ${jfrArgs} "
 
+provisioner --kill
+
 coordinator --duration ${duration} \
             --members ${members} \
             --workerVmOptions "${memberJvmArgs}" \
