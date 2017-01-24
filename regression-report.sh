@@ -107,7 +107,7 @@ add_report(){
 
     html "<h3>PERFORMANCE RESULTS</h3>"
     html "<table border=\"1\">"
-    html "<tr bgcolor=/"#0B97F3/"><td>Benchmark Name</td>"
+    html "<tr bgcolor=/"#0B97F3/"><td>Benchmark</td>"
     html "<td>Throughput - "${BASELINE_VERSION}" (op/s)</td>"
     html "<td>Throughput - "${MASTER_VERSION}" (op/s)</td>"
     html "<td>Throughput Improvement %</td>"
