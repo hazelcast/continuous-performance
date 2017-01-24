@@ -27,6 +27,9 @@ echo "Setting Simulator home..."
 #export SIMULATOR_HOME=~/hazelcast-simulator-0.9-RC1-SNAPSHOT
 #PATH="${SIMULATOR_HOME}/bin:${PATH}"
 
+# make sure that simulator is installed on the machines.
+privisioner --install
+
 echo "New Simulator home : " $SIMULATOR_HOME
 echo "Perf Regression Home : " $PERF_REGRESSION_HOME
 
