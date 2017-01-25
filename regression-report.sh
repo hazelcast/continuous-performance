@@ -9,17 +9,15 @@ TEST_DIR=${3:-tests}
 TEST_RESULT_DIR=${4:-tests-results}
 COMPARISON_REPORT_DIR=${5:-comparison-report}
 REPORT_CSV=${6:-report.csv}
-REPORT_HTML=${7:-perf-regression-report.html}
 THRESHOLD=${8:-2}
 TEST_DURATION=5m
 DATE=$(date '+%Y_%m_%d-%H_%M_%S')
-REPORT_HTML_DIR=${TEST_RESULT_DIR}/${DATE}
-REPORT_HTML_LOC=${REPORT_HTML_DIR}/${REPORT_HTML}
+REPORT_DIR=${TEST_RESULT_DIR}/${DATE}
+REPORT_PATH="${REPORT_DIR}/perf-regression-report.html"
 
 html()
 {
-
-    echo "$1" >> ${REPORT_HTML_LOC}
+    echo "$1" >> ${REPORT_PATH}
 }
 
 run_benchmarks()
@@ -127,7 +125,8 @@ init(){
     provisioner --install
 
     # make sure the directory exists
-    mkdir -p REPORT_HTML_DIR
+    mkdir -p REPORT_DIR
+    touch REPORT_PATH
 }
 
 init
