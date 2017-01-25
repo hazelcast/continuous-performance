@@ -11,7 +11,7 @@ COMPARISON_REPORT_DIR=${5:-comparison-report}
 REPORT_CSV=${6:-report.csv}
 REPORT_HTML=${7:-perf-regression-report.html}
 THRESHOLD=${8:-2}
-TEST_DURATION=60s
+TEST_DURATION=5m
 DATE=$(date '+%Y_%m_%d-%H_%M_%S')
 REPORT_HTML_LOC=${TEST_RESULT_DIR}/${DATE}/${REPORT_HTML}
 
