@@ -42,4 +42,10 @@
     <cache name="cache*">
     </cache>
 
+    <map name="map-nearcache">
+        <near-cache name="map-nearcache">
+            <max-size>1000</max-size>
+        </near-cache>
+    </map>
+
 </hazelcast>
