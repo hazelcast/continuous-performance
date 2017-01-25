@@ -18,3 +18,4 @@ template_simulator.properties
 .doit.swp
 *.agents
 simulator.properties
+agents.txt
