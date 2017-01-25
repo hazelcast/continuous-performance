@@ -125,8 +125,8 @@ init(){
     provisioner --install
 
     # make sure the directory exists
-    mkdir -p REPORT_DIR
-    touch REPORT_PATH
+    mkdir -p $REPORT_DIR
+    touch $REPORT_PATH
 }
 
 init
