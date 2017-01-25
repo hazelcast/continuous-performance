@@ -13,7 +13,8 @@ REPORT_HTML=${7:-perf-regression-report.html}
 THRESHOLD=${8:-2}
 TEST_DURATION=5m
 DATE=$(date '+%Y_%m_%d-%H_%M_%S')
-REPORT_HTML_LOC=${TEST_RESULT_DIR}/${DATE}/${REPORT_HTML}
+REPORT_HTML_DIR=${TEST_RESULT_DIR}/${DATE}
+REPORT_HTML_LOC=${REPORT_HTML_DIR}${REPORT_HTML}
 
 echo TEST_DIR=$TEST_DIR
 
@@ -22,17 +23,12 @@ echo "Date : " $DATE
 # make sure that simulator is installed on the machines.
 provisioner --install
 
-echo "New Simulator home : " $SIMULATOR_HOME
-echo "Perf Regression Home : " $PERF_REGRESSION_HOME
-
-#Copying all content to Jenkins Workspace
-echo "Copying all content from PERF_REGRESSION_HOME to Jenkins Workspace"
-#cp -r ${PERF_REGRESSION_HOME}/* .
-#cp ${PERF_REGRESSION_HOME}/*.* .
-echo "Copying completed."
+# make sure the directory exists
+mkdir -p REPORT_HTML_DIR
 
 html()
 {
+
     echo "$1" >> ${REPORT_HTML_LOC}
 }
 
@@ -131,8 +127,9 @@ add_report(){
     html "</table>"
 }
 
-run_benchmarks 3 3
 html "<html><body>"
+
+run_benchmarks 3 3
 add_report "Clients"  3 3
 
 run_benchmarks 0 3
