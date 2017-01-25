@@ -15,17 +15,9 @@ TEST_DURATION=60s
 DATE=$(date '+%Y_%m_%d-%H_%M_%S')
 REPORT_HTML_LOC=${TEST_RESULT_DIR}/${DATE}/${REPORT_HTML}
 
-#DATE="2017-01-18__09_53_47"
-
 echo TEST_DIR=$TEST_DIR
 
 echo "Date : " $DATE
-
-#Setting simulator home
-echo "Setting Simulator home..." 
-#export SIMULATOR_ROOT=~/hazelcast-simulator-0.9-RC1-SNAPSHOT
-#export SIMULATOR_HOME=~/hazelcast-simulator-0.9-RC1-SNAPSHOT
-#PATH="${SIMULATOR_HOME}/bin:${PATH}"
 
 # make sure that simulator is installed on the machines.
 provisioner --install
