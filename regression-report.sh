@@ -16,16 +16,6 @@ DATE=$(date '+%Y_%m_%d-%H_%M_%S')
 REPORT_HTML_DIR=${TEST_RESULT_DIR}/${DATE}
 REPORT_HTML_LOC=${REPORT_HTML_DIR}${REPORT_HTML}
 
-echo TEST_DIR=$TEST_DIR
-
-echo "Date : " $DATE
-
-# make sure that simulator is installed on the machines.
-provisioner --install
-
-# make sure the directory exists
-mkdir -p REPORT_HTML_DIR
-
 html()
 {
 
@@ -126,6 +116,21 @@ add_report(){
     done < ${TEST_RESULT_DIR}/${DATE}/${CLIENTS}C-${MEMBERS}M/${REPORT_CSV}
     html "</table>"
 }
+
+init(){
+    echo TEST_DIR=$TEST_DIR
+
+    echo "Date : " $DATE
+
+    # make sure that simulator is installed on the machines.
+    cp template_simulator.properties simulator.properties
+    provisioner --install
+
+    # make sure the directory exists
+    mkdir -p REPORT_HTML_DIR
+}
+
+init
 
 html "<html><body>"
 
