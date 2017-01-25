@@ -84,9 +84,10 @@ add_report(){
     TITLE=$1
     CLIENTS=$2
     MEMBERS=$3
-    html "<h2>$TITLE</h2>"
-    html "<h3>TESTS CONFIGURATION </h3>"
 
+    html "<h2>$TITLE</h2>"
+
+    html "<h3>TESTS CONFIGURATION </h3>"
     html "<table border=\"1\">"
     html "<tr bgcolor=/"#0B97F3/"><td>NAME</td><td>VALUE</td></tr>"
     html "<tr><td>Baseline Hazelcast Version</td><td>"${BASELINE_VERSION}"</td></tr>"
@@ -94,7 +95,6 @@ add_report(){
     html "<tr><td>Hazelcast Member Count</td><td>${MEMBERS}</td></tr>"
     html "<tr><td>Hazelcast Client Count</td><td>${CLIENTS}</td></tr>"
     html "<tr><td>Test Duration</td><td>${TEST_DURATION}</td></tr>"
-
     html "</table></br></br>"
 
     html "<h3>PERFORMANCE RESULTS</h3>"
