@@ -14,11 +14,8 @@ benchmark_name=${TEST_NAME}
 TPS_LHS=$(cat $HTML_REPORT_FILE | grep -5 Throughput | tail -1 | awk -F "<|>" '{print $9 }')
 TPS_RHS=$(cat $HTML_REPORT_FILE | grep -6 Throughput | tail -1 | awk -F "<|>" '{print $9 }')
 
-perf_change=$(echo $TPS_RHS/$TPS_LHS | bc -l)
-perf_change=$(echo $perf_change-1 | bc -l)
-perf_change=$(echo $perf_change*100 | bc -l)
-
-grace_perf_change=$(echo $perf_change + ${THRESHOLD} | bc -l)
+perf_change=$(echo "$TPS_LHS $TPS_RHS" |   awk '{printf "%.2f \n", 100*($1/$2-1)}')
+grace_perf_change=$(echo "$perf_change $THRESHOLD" |   awk '{printf "%.2f \n",$1+$2}')
 
 if [ 1 -eq "$(echo "${grace_perf_change} < 0" | bc)" ]
 then
